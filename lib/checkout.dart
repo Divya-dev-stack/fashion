@@ -1086,7 +1086,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
     return null;
   }
 
-  // Alternate number is optional — only validate if the user typed something.
+  // Alternate number is REQUIRED. It is allowed to be the same as the
+  // main mobile number (e.g. when only one person lives at the address).
   String? _validateAltPhone(String? value) {
     final phone = value?.trim() ?? '';
     if (phone.isEmpty) return 'Required';
@@ -1097,10 +1098,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
     if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(phone)) {
       return 'Enter a valid phone number';
-    }
-
-    if (phone == _phoneCtrl.text.trim()) {
-      return 'Enter a different number than above';
     }
 
     return null;
@@ -1597,7 +1594,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         style: TextStyle(color: Color(0xFF2E7D32), fontSize: 11, fontWeight: FontWeight.w700),
                       ),
                     ),
-                                     Icon(
+                  Icon(
                     expanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                     size: 20,
                     color: Colors.white,

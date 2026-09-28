@@ -22,7 +22,6 @@
 //   - Area / Sector / Locality
 //   - Full name
 //   - Mobile
-//   - Alternate mobile
 //   - Home / Work
 //   - Save address
 //
@@ -187,7 +186,7 @@ class _LocationMapPickerPageState
     // NEW ADDRESS
     // -------------------------------------------------------------
 
-         if (_isBrandNewAddress) {
+    if (_isBrandNewAddress) {
       _entryChoicePending = true;
       _suppressNextAutoResolve = true;
 
@@ -332,7 +331,7 @@ class _LocationMapPickerPageState
       _entryChoicePending = false;
     });
 
-           if (useCurrentLocation == true) {
+    if (useCurrentLocation == true) {
       await _centerOnDeviceLocation(
         showErrors: true,
       );
@@ -365,7 +364,7 @@ class _LocationMapPickerPageState
     _debounce?.cancel();
   }
 
-    void _onCameraIdle() {
+  void _onCameraIdle() {
     _debounce?.cancel();
 
     if (_suppressNextAutoResolve) {
@@ -867,7 +866,6 @@ class _LocationMapPickerPageState
     String flatHouse,
     String fullName,
     String phone,
-    String altPhone,
     String label,
   ) async {
     final List<String> addressParts = [
@@ -1493,7 +1491,7 @@ class _LocationMapPickerPageState
                   ),
                 ),
 
-                                const SizedBox(height: 14),
+                const SizedBox(height: 14),
 
                 // -----------------------------------------------------------
                 // CONFIRM LOCATION — opens the Address Details sheet so a
@@ -1551,7 +1549,6 @@ class _AddressDetailsSheet
     String flatHouse,
     String fullName,
     String phone,
-    String altPhone,
     String label,
   ) onSave;
 
@@ -1587,10 +1584,6 @@ class _AddressDetailsSheetState
 
   late final TextEditingController
       _phoneController;
-
-  final TextEditingController
-      _altPhoneController =
-      TextEditingController();
 
   // -------------------------------------------------------------------------
   // ADDRESS TYPE
@@ -1638,7 +1631,6 @@ class _AddressDetailsSheetState
     _flatHouseController.dispose();
     _fullNameController.dispose();
     _phoneController.dispose();
-    _altPhoneController.dispose();
 
     super.dispose();
   }
@@ -1666,10 +1658,9 @@ class _AddressDetailsSheetState
         _flatHouseController.text.trim(),
         _fullNameController.text.trim(),
         _phoneController.text.trim(),
-        _altPhoneController.text.trim(),
         _addressType,
       );
-         } catch (e) {
+    } catch (e) {
       debugPrint('❌ Add-details save failed: $e');
       if (mounted) {
         ScaffoldMessenger.of(context)
@@ -2006,56 +1997,6 @@ class _AddressDetailsSheetState
                     }
 
                     if (phone.startsWith('0')) {
-                      return 'Enter a valid mobile number';
-                    }
-
-                    return null;
-                  },
-                ),
-
-                const SizedBox(height: 14),
-
-                // ===========================================================
-                // ALTERNATE MOBILE
-                // ===========================================================
-
-                TextFormField(
-                  controller:
-                      _altPhoneController,
-
-                  keyboardType:
-                      TextInputType.phone,
-
-                  maxLength: 10,
-
-                  inputFormatters: [
-                    FilteringTextInputFormatter
-                        .digitsOnly,
-                  ],
-
-                  decoration:
-                      const InputDecoration(
-                    labelText:
-                        'Alternate phone number (Optional)',
-                    border:
-                        OutlineInputBorder(),
-                    isDense: true,
-                    counterText: '',
-                  ),
-
-                  validator: (value) {
-                    final String altPhone =
-                        value?.trim() ?? '';
-
-                    if (altPhone.isEmpty) {
-                      return null;
-                    }
-
-                    if (altPhone.length != 10) {
-                      return 'Enter a valid 10-digit number';
-                    }
-
-                    if (altPhone.startsWith('0')) {
                       return 'Enter a valid mobile number';
                     }
 
