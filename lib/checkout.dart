@@ -799,7 +799,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
-              child: _buildCurrentStep(),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 700),
+                  child: _buildCurrentStep(),
+                ),
+              ),
             ),
           ),
         ],
@@ -814,7 +819,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ? null
           : SafeArea(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                padding: EdgeInsets.fromLTRB(_sidePad(context), 8, _sidePad(context), 16),
                 child: ElevatedButton(
                   onPressed: _placingOrder ? null : _goNext,
                   style: ElevatedButton.styleFrom(
@@ -861,6 +866,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
   // ===================================================================
   // TITLE
   // ===================================================================
+
+    double _sidePad(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    return w > 700 ? (w - 700) / 2 : 16;
+  }
 
   String _titleForStep() {
     switch (_step) {

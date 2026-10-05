@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'app_colors.dart';
 import 'app_state.dart';
 import 'login_page.dart';
+import 'responsive.dart';
 
 // ---------------------------------------------------------------------
 // CATERING PAGE
@@ -51,6 +52,7 @@ class _CateringPageState extends State<CateringPage>
         backgroundColor: AppColors.primary,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
+        toolbarHeight: Responsive.isDesktop(context) ? 0.0 : null,
         title: const Text(
           'Sumathi Catering',
           style: TextStyle(

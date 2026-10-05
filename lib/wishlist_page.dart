@@ -4,7 +4,6 @@ import '../app_state.dart';
 import '../models.dart';
 import '../product_details_page.dart';
 
-
 class WishlistPage extends StatelessWidget {
   const WishlistPage({super.key});
 
@@ -47,11 +46,20 @@ class WishlistPage extends StatelessWidget {
           // ==========================================================
           // BODY
           // ==========================================================
-          body: items.isEmpty
-              ? _buildEmptyWishlist()
-              : LayoutBuilder(
-                  builder: (context, constraints) {
-                    final width = constraints.maxWidth;
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              final maxWidth = constraints.maxWidth > 1200
+                  ? 1200.0
+                  : constraints.maxWidth;
+
+              return Center(
+                child: SizedBox(
+                  width: maxWidth,
+                  child: items.isEmpty
+                      ? _buildEmptyWishlist()
+                      : LayoutBuilder(
+                          builder: (context, constraints) {
+                            final width = constraints.maxWidth;
 
                     // ------------------------------------------------
                     // RESPONSIVE GRID
@@ -105,37 +113,41 @@ class WishlistPage extends StatelessWidget {
 
                       itemCount: items.length,
 
-                      itemBuilder: (context, index) {
-                        final product = items[index];
+                            itemBuilder: (context, index) {
+                              final product = items[index];
 
-                        return _WishlistProductCard(
-                          product: product,
+                              return _WishlistProductCard(
+                                product: product,
 
-                          onTap: () {
-                            _openProductDetails(
-                              context,
-                              product,
-                            );
-                          },
+                                onTap: () {
+                                  _openProductDetails(
+                                    context,
+                                    product,
+                                  );
+                                },
 
-                          onWishlistTap: () {
-                            state.toggleWishlist(
-                              product,
-                            );
-                          },
+                                onWishlistTap: () {
+                                  state.toggleWishlist(
+                                    product,
+                                  );
+                                },
 
-                          onCartTap: () {
-                            _addToCart(
-                              context,
-                              state,
-                              product,
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
+                                onCartTap: () {
+                                  _addToCart(
+                                    context,
+                                    state,
+                                    product,
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
                 ),
+              );
+            },
+          ),
         );
       },
     );

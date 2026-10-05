@@ -996,7 +996,12 @@ class _SettingsPageState extends State<SettingsPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(14, 16, 14, 40),
-          child: _buildPanelBody(),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 700),
+              child: _buildPanelBody(),
+            ),
+          ),
         ),
       ),
     );
