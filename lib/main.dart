@@ -9,6 +9,8 @@ import 'app_colors.dart';
 import 'app_state.dart';
 import 'notification_service.dart';
 import 'splash_screen.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'main_nav_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,20 +21,28 @@ void main() async {
   // Register background/terminated handler for incoming FCM messages.
   // (Defined as a top-level function inside notification_service.dart —
   // must be registered before runApp, same as before.)
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  if (!kIsWeb) {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
 
   // Everything else — local notification channel setup, asking for the
   // OS Allow/Block permission popup, saving the FCM token to the backend,
   // and the foreground push listener — now lives in ONE place:
   // NotificationService. main.dart no longer duplicates any of that.
+    if (!kIsWeb) {
     await NotificationService.instance.init();
+  }
 
     // Restore saved login (userId) so it survives app restarts —
   // needed for product details page to fetch the saved delivery address.
   await AppState.instance.loadSavedLogin();
 
-  OneSignalService.instance.initialize('e2ba850f-0954-4c0a-8360-c17abbff7acf');
-  OneSignalService.instance.setRoleTag('customer');
+  if (!kIsWeb) {
+    OneSignalService.instance.initialize('e2ba850f-0954-4c0a-8360-c17abbff7acf');
+  }
+   if (!kIsWeb) {
+    OneSignalService.instance.setRoleTag('customer');
+  }
 
   // Initialize MSG91 OTP Widget — must happen before runApp,
   // so it's ready when the login screen calls sendOTP/verifyOTP.
@@ -57,7 +67,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
         useMaterial3: true,
       ),
-            home: const SplashScreen(),
+            home: kIsWeb ? const MainNavPage() : const SplashScreen(),
     );
   }
 }

@@ -26,6 +26,7 @@ import 'models.dart';
 import 'checkout.dart';
 import 'cart_page.dart';
 import 'product_details_page.dart';
+import 'responsive.dart';
 
 class ShopPage extends StatefulWidget {
   final String? initialFilter;
@@ -327,7 +328,10 @@ class _ShopPageState extends State<ShopPage> {
           // APP BAR
           // ======================================================
 
-          appBar: AppBar(
+          appBar: (Responsive.isDesktop(context) &&
+                  !Navigator.of(context).canPop())
+              ? null
+              : AppBar(
             title: const Text(
               'Shop Collection',
             ),
@@ -520,7 +524,9 @@ class _ShopPageState extends State<ShopPage> {
 
           return LayoutBuilder(
             builder: (context, constraints) {
-              const crossAxisCount = 3;
+              final crossAxisCount = Responsive.isMobile(context)
+                  ? 3
+                  : Responsive.gridCount(context);
               const gap = 10.0;
               const infoHeight = 68.0; // name + price + cart-icon row
 

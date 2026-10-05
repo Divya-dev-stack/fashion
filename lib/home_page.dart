@@ -23,6 +23,8 @@ import 'product_details_page.dart';
 
 import 'class_page.dart';
 import 'contact.dart';
+import 'responsive.dart';
+import 'footer.dart';
 
 /// ---------------------------------------------------------------------
 /// HOME PAGE
@@ -468,7 +470,9 @@ class _HomePageState extends State<HomePage> {
               controller: _scrollController,
               slivers: [
                 SliverToBoxAdapter(
-                  child: _buildAppHeader(
+                  child: Responsive.isDesktop(context)
+                      ? _buildDesktopTop(context, state)
+                      : _buildAppHeader(
                     context,
                     state,
                   ),
@@ -489,7 +493,7 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 const SliverToBoxAdapter(
-                  child: SizedBox(height: 24),
+                  child: Footer(hideOnMobile: true),
                 ),
               ],
             ),
@@ -970,6 +974,27 @@ class _HomePageState extends State<HomePage> {
   // SEARCH BAR
   // ===============================================================
 
+  Widget _buildDesktopTop(BuildContext context, AppState state) {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(flex: 2, child: _buildHomeAddressCard(state)),
+              const SizedBox(width: 16),
+              Expanded(flex: 3, child: _buildSearchBar()),
+            ],
+          ),
+          const SizedBox(height: 18),
+          _buildQuickCategories(),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSearchBar() {
     return Container(
       padding:
@@ -1365,7 +1390,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildHeroSlider() {
     return SizedBox(
-      height: 220,
+      height: Responsive.isDesktop(context) ? 400 : 220,
       child: Stack(
         children: [
           ClipRRect(
@@ -1387,8 +1412,15 @@ class _HomePageState extends State<HomePage> {
               },
               itemBuilder:
                   (context, i) {
-                return _buildHeroSlide(
-                  _heroSlides[i],
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: TextScaler.linear(
+                      Responsive.isDesktop(context) ? 1.7 : 1.0,
+                    ),
+                  ),
+                  child: _buildHeroSlide(
+                    _heroSlides[i],
+                  ),
                 );
               },
             ),
@@ -1692,7 +1724,7 @@ class _HomePageState extends State<HomePage> {
             )
           else
             SizedBox(
-              height: 232,
+              height: Responsive.isDesktop(context) ? 340 : 232,
               child: ListView.separated(
                 scrollDirection:
                     Axis.horizontal,
@@ -1712,7 +1744,7 @@ class _HomePageState extends State<HomePage> {
                       _featuredProducts[i];
 
                   return SizedBox(
-                    width: 140,
+                    width: Responsive.isDesktop(context) ? 280 : 140,
                     child: RevealOnScroll(
                       tag:
                           'featured_${product.id}_$i',
@@ -2398,6 +2430,10 @@ class _HomePageState extends State<HomePage> {
               builder:
                   (context, constraints) {
                 const gap = 10.0;
+                final cols = Responsive.isMobile(context)
+                    ? 3
+                    : Responsive.gridCount(context);
+                final cardH = Responsive.isMobile(context) ? 205.0 : 300.0;
 
                 final availableWidth =
                     constraints
@@ -2411,8 +2447,9 @@ class _HomePageState extends State<HomePage> {
                 return SliverGrid(
                   gridDelegate:
                       SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:
+                      crossAxisCount: cols > 0 ? cols :
                         3,
+                    mainAxisExtent: cardH,
                     mainAxisSpacing:
                         12,
                     crossAxisSpacing:

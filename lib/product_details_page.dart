@@ -9,6 +9,7 @@ import 'location_picker_page.dart';
 import 'cart_page.dart';
 import 'login_page.dart';
 import 'api_service.dart';
+import 'responsive.dart';
 
 /// ---------------------------------------------------------------------
 /// PRODUCT DETAILS PAGE — Sumathi's Styles
@@ -404,8 +405,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildProductImage(product),
-                  _buildProductInfo(product),
+                  if (!Responsive.isDesktop(context)) _buildProductImage(product),
+                  if (Responsive.isDesktop(context))
+                    _buildDesktopLayout(product)
+                  else
+                    _buildProductInfo(product),
                 ],
               ),
             ),
@@ -440,6 +444,37 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   fit: BoxFit.contain,
                   errorBuilder: (_, __, ___) => _imagePlaceholder(),
                 ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDesktopLayout(Product product) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 1200),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 5,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: _buildProductImage(product),
+                ),
+              ),
+              const SizedBox(width: 24),
+              Expanded(
+                flex: 6,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: _buildProductInfo(product),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -678,6 +713,7 @@ const SizedBox(height: 18),
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      constraints: const BoxConstraints(maxWidth: 600),
       backgroundColor: Colors.transparent,
       builder: (sheetCtx) {
         return StatefulBuilder(

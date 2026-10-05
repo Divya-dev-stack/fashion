@@ -5,6 +5,9 @@ import 'home_page.dart';
 import 'shop_page.dart';
 import 'catering_page.dart';
 import 'settings_page.dart';
+import 'cart_page.dart';
+import 'responsive.dart';
+import 'login_page.dart';
 
 /// ---------------------------------------------------------------------
 /// MAIN NAV PAGE — the app shell with the bottom nav bar.
@@ -40,14 +43,114 @@ class _MainNavPageState extends State<MainNavPage> {
     return AnimatedBuilder(
       animation: AppState.instance,
       builder: (context, _) {
+     final desktop = Responsive.isDesktop(context);
         return Scaffold(
-          body: IndexedStack(
-            index: _currentIndex,
-            children: _pages,
+          appBar: desktop ? _buildDesktopHeader() : null,
+          body: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: desktop ? 1280 : double.infinity,
+              ),
+              child: IndexedStack(
+                index: _currentIndex,
+                children: _pages,
+              ),
+            ),
           ),
-          bottomNavigationBar: _buildBottomNav(),
+          bottomNavigationBar: desktop ? null : _buildBottomNav(),
         );
       },
+    );
+  }
+
+   PreferredSizeWidget _buildDesktopHeader() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(64),
+      child: Material(
+        color: AppColors.primary,
+        elevation: 2,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1280),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/cir.png',
+                    height: 40,
+                    errorBuilder: (_, __, ___) => const SizedBox(width: 40),
+                  ),
+                  const SizedBox(width: 12),
+                  const Text(
+                    "Sumathi's Styles",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const Spacer(),
+                  _topLink(0, 'Home'),
+                  _topLink(1, 'Shop'),
+                  _topLink(2, 'Service'),
+                  _topLink(3, 'Profile'),
+                  if (!AppState.instance.isLoggedIn)
+                    TextButton(
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginPage()),
+                      ),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  const SizedBox(width: 12),
+                  IconButton(
+                    tooltip: 'Cart',
+                    icon: const Icon(Icons.shopping_cart_outlined,
+                        color: Colors.white),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CartPage()),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _topLink(int index, String label) {
+    final bool active = _currentIndex == index;
+    return InkWell(
+      onTap: () => setState(() => _currentIndex = index),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 22),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: active ? Colors.white : Colors.transparent,
+              width: 3,
+            ),
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.5,
+            fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+          ),
+        ),
+      ),
     );
   }
 
