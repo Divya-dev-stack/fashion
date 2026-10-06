@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sendotp_flutter_sdk/sendotp_flutter_sdk.dart';
@@ -162,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
-            '🇮🇳 $_countryCode',
+            'ðŸ‡®ðŸ‡³ $_countryCode',
             style: TextStyle(
               color: Colors.white,
               fontSize: 15,
@@ -449,7 +448,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       // ---------- WELCOME TEXT ----------
                       const Text(
-                        "Welcome to Sumathi's Styles ✨",
+                        "Welcome to Sumathi's Styles âœ¨",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white70,

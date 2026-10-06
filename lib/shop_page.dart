@@ -1,24 +1,23 @@
-// shop_page.dart
+﻿// shop_page.dart
 //
 // Sumathi's Styles - Shop Collection
 // ------------------------------------------------------------
 // Features:
-// • Category bar (horizontal, Home-page style, fixed above the grid)
-// • Product grid — 3 columns, square image + compact info row
+// â€¢ Category bar (horizontal, Home-page style, fixed above the grid)
+// â€¢ Product grid â€” 3 columns, square image + compact info row
 //   (sized to match the Wishlist page card look)
-// • Home-page style product cards
-// • Wishlist button
-// • Rating badge
-// • Add to Cart / View Cart button
-// • Buy Now button
-// • Product details page (shared with Home)
-// • Delivery location
-// • Product description
-// • Product highlights
+// â€¢ Home-page style product cards
+// â€¢ Wishlist button
+// â€¢ Rating badge
+// â€¢ Add to Cart / View Cart button
+// â€¢ Buy Now button
+// â€¢ Product details page (shared with Home)
+// â€¢ Delivery location
+// â€¢ Product description
+// â€¢ Product highlights
 // ------------------------------------------------------------
 
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 
 import 'api_service.dart';
 import 'app_colors.dart';
@@ -193,7 +192,7 @@ class _ShopPageState extends State<ShopPage> {
   }
 
   // ============================================================
-  // CONVERT SERVICE → PRODUCT
+  // CONVERT SERVICE â†’ PRODUCT
   // ============================================================
 
   Product _productFrom(
@@ -271,7 +270,7 @@ class _ShopPageState extends State<ShopPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          '${service.name} added to cart! 🛒',
+          '${service.name} added to cart! ðŸ›’',
         ),
         action: SnackBarAction(
           label: 'VIEW CART',
@@ -344,7 +343,7 @@ class _ShopPageState extends State<ShopPage> {
           // ======================================================
           // BODY
           // Category bar stays outside the scrollable product grid,
-          // so it never scrolls away — always "stuck" above the products.
+          // so it never scrolls away â€” always "stuck" above the products.
           // ======================================================
 
           body: Column(
@@ -519,7 +518,7 @@ class _ShopPageState extends State<ShopPage> {
 
           // ======================================================
           // PRODUCT GRID
-          // 3 columns • square image + fixed-height info row
+          // 3 columns â€¢ square image + fixed-height info row
           // (matches the Wishlist page card size)
           // ======================================================
 
@@ -632,7 +631,7 @@ class _ShopPageState extends State<ShopPage> {
 // ================================================================
 // PRODUCT CARD
 // Square image on top (AspectRatio 1:1, like the Wishlist card),
-// compact info row below — name, price, and a small cart button.
+// compact info row below â€” name, price, and a small cart button.
 // ================================================================
 
 class _ProductCard extends StatelessWidget {
@@ -711,7 +710,7 @@ class _ProductCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // ==================================================
-            // PRODUCT IMAGE — square, sized off card width
+            // PRODUCT IMAGE â€” square, sized off card width
             // (same look as the Wishlist page card)
             // ==================================================
 
@@ -858,7 +857,7 @@ class _ProductCard extends StatelessWidget {
             ),
 
             // ==================================================
-            // PRODUCT INFO — fixed-height row (name/price + cart)
+            // PRODUCT INFO â€” fixed-height row (name/price + cart)
             // ==================================================
 
             SizedBox(
@@ -905,7 +904,7 @@ class _ProductCard extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            '₹${service.price.toStringAsFixed(0)}',
+                            'â‚¹${service.price.toStringAsFixed(0)}',
                             maxLines: 1,
                             overflow:
                                 TextOverflow

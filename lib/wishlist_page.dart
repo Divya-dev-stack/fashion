@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import '../app_colors.dart';
 import '../app_state.dart';
 import '../models.dart';
@@ -247,7 +246,7 @@ class WishlistPage extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          '${product.name} added to cart 🛒',
+          '${product.name} added to cart ðŸ›’',
         ),
         duration:
             const Duration(seconds: 1),
@@ -491,7 +490,7 @@ class _WishlistProductCard
                         ),
 
                         Text(
-                          '₹${product.price.toStringAsFixed(0)}',
+                          'â‚¹${product.price.toStringAsFixed(0)}',
                           maxLines: 1,
                           overflow:
                               TextOverflow.ellipsis,
@@ -605,7 +604,7 @@ class _ProductImage
           // FIX: `cover` was force-filling the frame and cropping
           // off the top of the photo (the model's face). `contain`
           // shows the full image, anchored to the top so the face
-          // is always visible — same as the home page cards.
+          // is always visible â€” same as the home page cards.
           fit: BoxFit.contain,
           alignment: Alignment.topCenter,
 
@@ -658,7 +657,7 @@ class _ProductImage
         width: double.infinity,
         height: double.infinity,
 
-        // FIX: same crop issue as the network image branch above —
+        // FIX: same crop issue as the network image branch above â€”
         // `contain` + top alignment keeps the full photo (face
         // included) visible instead of `cover` cutting it off.
         fit: BoxFit.contain,

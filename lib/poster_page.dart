@@ -1,6 +1,5 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PosterPage extends StatefulWidget {
@@ -127,7 +126,7 @@ class _PosterPageState extends State<PosterPage>
           ),
           child: const Center(
             child: Text(
-              '✓',
+              'âœ“',
               style: TextStyle(
                 color: Color(0xFF1A2A3A),
                 fontSize: 13,
@@ -186,7 +185,7 @@ class _PosterPageState extends State<PosterPage>
 
                 const Text(
                   'Turn Your Wedding Day Dream Into Reality! '
-                  'Complete bridal stitching & styling — crafted with '
+                  'Complete bridal stitching & styling â€” crafted with '
                   '30 years of trusted experience.',
                   style: TextStyle(
                     color: Color(0xFFF0FFF4),
@@ -201,57 +200,57 @@ class _PosterPageState extends State<PosterPage>
                 Column(
                   children: [
                     _feature(
-                      'Saree Falls — Proper fall stitching for heavy bridal sarees.',
+                      'Saree Falls â€” Proper fall stitching for heavy bridal sarees.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Saree Hemming — Clean finishing for saree edges.',
+                      'Saree Hemming â€” Clean finishing for saree edges.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Saree Tassels — Decorative tassels for pallu.',
+                      'Saree Tassels â€” Decorative tassels for pallu.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Saree Pre-Pleating — Ready-to-wear pleats for wedding day convenience.',
+                      'Saree Pre-Pleating â€” Ready-to-wear pleats for wedding day convenience.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Blouse Normal — Standard blouse stitching with lining.',
+                      'Blouse Normal â€” Standard blouse stitching with lining.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Aari Blouse — Heavy bridal embroidery with beads, zardosi, stones.',
+                      'Aari Blouse â€” Heavy bridal embroidery with beads, zardosi, stones.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Lehenga — Bridal lehenga stitching with lining and can-can support.',
+                      'Lehenga â€” Bridal lehenga stitching with lining and can-can support.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Blouse Padding — Perfect fit with bridal comfort.',
+                      'Blouse Padding â€” Perfect fit with bridal comfort.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Dupatta Edging — Lace or pico finish for dupatta borders.',
+                      'Dupatta Edging â€” Lace or pico finish for dupatta borders.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Boutique Finishing Touches — Piping, hooks, dori, tassels for elegance.',
+                      'Boutique Finishing Touches â€” Piping, hooks, dori, tassels for elegance.',
                     ),
                     const SizedBox(height: 15),
 
                     _feature(
-                      'Trial Fitting Sessions — Ensures comfort and flawless bridal look.',
+                      'Trial Fitting Sessions â€” Ensures comfort and flawless bridal look.',
                     ),
                   ],
                 ),

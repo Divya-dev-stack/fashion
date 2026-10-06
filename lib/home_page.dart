@@ -1,7 +1,6 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -126,7 +125,7 @@ class _HomePageState extends State<HomePage> {
     HeroSlide(
       title: 'Traditional Elegance',
       subtitle: 'Modern Style',
-      tagline: 'Custom Stitching • Bridal Wear • Aari Work',
+      tagline: 'Custom Stitching â€¢ Bridal Wear â€¢ Aari Work',
       imageUrl: 'assets/images/model.png',
       buttonLabel: 'Shop Now',
       buttonColor: AppColors.gold,
@@ -143,7 +142,7 @@ class _HomePageState extends State<HomePage> {
     HeroSlide(
       title: 'Exclusive',
       subtitle: 'Bridal Package',
-      tagline: 'Full Bridal Set • Aari Work • Custom Fit',
+      tagline: 'Full Bridal Set â€¢ Aari Work â€¢ Custom Fit',
       imageUrl: 'assets/images/model.png',
       buttonLabel: 'Bridal Package',
       buttonColor: AppColors.gold,
@@ -160,7 +159,7 @@ class _HomePageState extends State<HomePage> {
     HeroSlide(
       title: 'Design It',
       subtitle: 'Your Way',
-      tagline: 'Any Design • Any Fabric • Perfect Fit',
+      tagline: 'Any Design â€¢ Any Fabric â€¢ Perfect Fit',
       imageUrl: 'assets/images/model.png',
       buttonLabel: 'Custom Order',
       buttonColor: AppColors.gold,
@@ -225,7 +224,7 @@ class _HomePageState extends State<HomePage> {
     try {
       // Fetch the MOST RECENTLY UPDATED saved address (not just any
       // doc) so this always matches the latest full address the
-      // customer saved — avoids showing a stale/incomplete entry
+      // customer saved â€” avoids showing a stale/incomplete entry
       // (e.g. one missing door/street/area) that just happens to be
       // first in the collection.
       final snapshot = await FirebaseFirestore.instance
@@ -659,7 +658,7 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   Text(
-                    '$greeting ✨',
+                    '$greeting âœ¨',
                     style:
                         const TextStyle(
                       fontSize: 17,
@@ -1686,7 +1685,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 6),
                 Text(
-                  'Handpicked designs — 30 years of crafting perfection',
+                  'Handpicked designs â€” 30 years of crafting perfection',
                   textAlign:
                       TextAlign.center,
                   style: TextStyle(
@@ -1714,7 +1713,7 @@ class _HomePageState extends State<HomePage> {
               height: 160,
               child: Center(
                 child: Text(
-                  'No products yet — check back soon!',
+                  'No products yet â€” check back soon!',
                   style: TextStyle(
                     fontSize: 13,
                     color:
@@ -1992,7 +1991,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                             height: 4),
                         Text(
-                          '₹${product.price.toStringAsFixed(0)}',
+                          'â‚¹${product.price.toStringAsFixed(0)}',
                           maxLines: 1,
                           overflow:
                               TextOverflow
@@ -2414,7 +2413,7 @@ class _HomePageState extends State<HomePage> {
                 height: 140,
                 child: Center(
                   child: Text(
-                    'No more products yet — check back soon!',
+                    'No more products yet â€” check back soon!',
                     style:
                         TextStyle(
                       fontSize: 13,
@@ -2718,7 +2717,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                             height: 4),
                         Text(
-                          '₹${product.price.toStringAsFixed(0)}',
+                          'â‚¹${product.price.toStringAsFixed(0)}',
                           maxLines:
                               1,
                           overflow:

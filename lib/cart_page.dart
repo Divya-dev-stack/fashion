@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 import 'app_state.dart';
@@ -197,7 +196,7 @@ class CartPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      '₹${state.cartTotal.toStringAsFixed(0)}',
+                      'â‚¹${state.cartTotal.toStringAsFixed(0)}',
                       style: const TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.bold,
@@ -354,7 +353,7 @@ class CartPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        '₹${product.price.toStringAsFixed(0)}',
+                        'â‚¹${product.price.toStringAsFixed(0)}',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -487,7 +486,7 @@ class CartPage extends StatelessWidget {
   // ================================================================
   // OPEN PRODUCT DETAILS
   // Routes to the SAME ProductDetailsPage used everywhere else in the
-  // app (product_details_page.dart) — this is the fix. Previously
+  // app (product_details_page.dart) â€” this is the fix. Previously
   // cart_page.dart had its own duplicate CartProductDetailsPage with a
   // different (broken) address-loading path and a fixed oversized
   // image, which is why the cart's product page looked/behaved

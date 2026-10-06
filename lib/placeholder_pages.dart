@@ -1,18 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 /// =====================================================================
 /// TEMPORARY PLACEHOLDER PAGES (Divya)
 /// =====================================================================
-/// These exist ONLY to unblock your build — home_page.dart's nav bar
+/// These exist ONLY to unblock your build â€” home_page.dart's nav bar
 /// and footer link to ClassesPage / CateringPage / ContactPage, and
 /// those classes didn't exist yet in simple_pages.dart, which was
 /// causing the "isn't a class" errors.
 ///
 /// Each one below is a simple "Coming Soon" screen with your app's
 /// theming. Replace the body of each with your real page whenever
-/// you're ready — you already mentioned you built a WebView-based
+/// you're ready â€” you already mentioned you built a WebView-based
 /// catering page earlier, so you can swap _ComingSoonBody() out for
 /// that in CateringPage once you wire it back in.
 ///

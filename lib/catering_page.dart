@@ -1,7 +1,6 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -837,7 +836,7 @@ class _MenuModalSheet extends StatelessWidget {
                               entry.particulars
                                   .map(
                                     (r) => r.value.isNotEmpty
-                                        ? '${r.label} — ${r.value}'
+                                        ? '${r.label} â€” ${r.value}'
                                         : r.label,
                                   )
                                   .join('  |  '),
@@ -1058,7 +1057,7 @@ class _CateringAboutTab extends StatelessWidget {
                       "in the profession. From intimate home parties to grand "
                       "events, we blend experience with creativity to make every "
                       "occasion special. We also undertake labour charge and "
-                      "contract basis catering at budget-friendly rates — every "
+                      "contract basis catering at budget-friendly rates â€” every "
                       "detail planned around your needs, taste, and budget.\n\n"
                       "Team: Murali (Director) | 50 Cooks | 50 Hospitality Staff | "
                       "50 Reception | 50 Supervisors.",
@@ -1228,7 +1227,7 @@ class _CateringAboutTab extends StatelessWidget {
                         const SizedBox(height: 8),
 
                         const Text(
-                          "Reach out to us for your next event 💛 "
+                          "Reach out to us for your next event ðŸ’› "
                           "We're just a message away! Share your event "
                           "details and we'll help you plan a menu your "
                           "guests will remember.",
@@ -1708,7 +1707,7 @@ class _CateringServicesTab extends StatelessWidget {
                 icon: Icons.room_service_outlined,
                 title: 'Our Services',
                 subtitle:
-                    'Complete event solutions beyond catering — '
+                    'Complete event solutions beyond catering â€” '
                     'decor, entertainment & more',
               ),
               Padding(
@@ -2083,12 +2082,12 @@ class _CateringContactTabState
   }
 
   // ---------------------------------------------------------------
-  // Saves the enquiry directly to Firestore's `contacts` collection —
+  // Saves the enquiry directly to Firestore's `contacts` collection â€”
   // the same collection admin_page.dart reads for its Customers /
   // Catering Contact tabs, and the same one custom_order_page.dart's
   // sibling forms use. `form_type: 'catering'` makes sure
   // admin_page.dart's isCatering() check routes this submission into
-  // the "🍽️ Catering Contact Form Submissions" admin tab instead of
+  // the "ðŸ½ï¸ Catering Contact Form Submissions" admin tab instead of
   // the boutique one.
   // ---------------------------------------------------------------
   Future<void> _submit() async {
@@ -2114,7 +2113,7 @@ class _CateringContactTabState
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-            '✅ Enquiry sent! We will contact you soon.',
+            'âœ… Enquiry sent! We will contact you soon.',
           ),
         ),
       );
@@ -2128,7 +2127,7 @@ class _CateringContactTabState
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('❌ Server error, please try again'),
+          content: Text('âŒ Server error, please try again'),
         ),
       );
     } finally {
@@ -2938,7 +2937,7 @@ class _CateringReviewsTabState extends State<_CateringReviewsTab> {
                             Navigator.pop(sheetContext);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Review updated successfully! ⭐'),
+                                content: Text('Review updated successfully! â­'),
                               ),
                             );
                           },
@@ -3252,7 +3251,7 @@ class _CateringReviewsTabState extends State<_CateringReviewsTab> {
                             Navigator.pop(sheetContext);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Review posted successfully! ⭐'),
+                                content: Text('Review posted successfully! â­'),
                               ),
                             );
                           },
@@ -3308,7 +3307,7 @@ class _CateringReviewsTabState extends State<_CateringReviewsTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Rating summary — same layout as Settings > My Reviews.
+                // Rating summary â€” same layout as Settings > My Reviews.
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
@@ -3340,7 +3339,7 @@ class _CateringReviewsTabState extends State<_CateringReviewsTab> {
                             ),
                             const SizedBox(height: 2),
                             const Text(
-                              '★★★★★',
+                              'â˜…â˜…â˜…â˜…â˜…',
                               style: TextStyle(
                                 color: AppColors.secondary,
                                 fontSize: 17,
@@ -3366,7 +3365,7 @@ class _CateringReviewsTabState extends State<_CateringReviewsTab> {
                                 ? 0.0
                                 : count / _reviews.length;
                             return _RatingBar(
-                              label: '$stars★',
+                              label: '$starsâ˜…',
                               percent: percent,
                             );
                           }).toList(),
@@ -3378,7 +3377,7 @@ class _CateringReviewsTabState extends State<_CateringReviewsTab> {
 
                 const SizedBox(height: 18),
 
-                // Logged-in user review prompt — same structure as Settings.
+                // Logged-in user review prompt â€” same structure as Settings.
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
@@ -3844,7 +3843,7 @@ class _ReviewCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '★' * stars + '☆' * (5 - stars),
+                    'â˜…' * stars + 'â˜†' * (5 - stars),
                     style: const TextStyle(
                       color: AppColors.secondary,
                       fontSize: 13,

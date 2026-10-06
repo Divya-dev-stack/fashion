@@ -1,9 +1,8 @@
-// simple_pages.dart
+﻿// simple_pages.dart
 // A collection of lightweight, mostly-static pages for Sumahti Styles:
 // About Us, Contact Us, Terms & Conditions, and Order History.
 
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'api_service.dart';
 
 // ---------------- ABOUT US ----------------
@@ -221,7 +220,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
                 child: ListTile(
                   title: Text(order.serviceName),
                   subtitle: Text(
-                    '${order.orderDate.day}/${order.orderDate.month}/${order.orderDate.year}  •  ₹${order.amount.toStringAsFixed(0)}',
+                    '${order.orderDate.day}/${order.orderDate.month}/${order.orderDate.year}  â€¢  â‚¹${order.amount.toStringAsFixed(0)}',
                   ),
                   trailing: Chip(
                     label: Text(

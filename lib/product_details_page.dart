@@ -1,6 +1,5 @@
-// product_details_page.dart
+﻿// product_details_page.dart
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'app_state.dart';
@@ -13,7 +12,7 @@ import 'api_service.dart';
 import 'responsive.dart';
 
 /// ---------------------------------------------------------------------
-/// PRODUCT DETAILS PAGE — Sumathi's Styles
+/// PRODUCT DETAILS PAGE â€” Sumathi's Styles
 /// ---------------------------------------------------------------------
 class ProductDetailsPage extends StatefulWidget {
   final Product product;
@@ -147,7 +146,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       if (!mounted) return;
       setState(() => _productReviews = loaded);
     } catch (_) {
-      // reviews are supplementary — fail silently
+      // reviews are supplementary â€” fail silently
     } finally {
       if (mounted) setState(() => _loadingReviews = false);
     }
@@ -181,7 +180,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             : null;
       });
     } catch (_) {
-      // ignore — treat as not eligible
+      // ignore â€” treat as not eligible
     } finally {
       if (mounted) setState(() => _checkingEligibility = false);
     }
@@ -349,7 +348,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     setState(() {});
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${widget.product.name} added to cart! 🛒'),
+        content: Text('${widget.product.name} added to cart! ðŸ›’'),
         action: SnackBarAction(label: 'VIEW CART', onPressed: _goToCart),
       ),
     );
@@ -561,7 +560,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ),
           const Divider(height: 26),
           Text(
-            '₹${product.price.toStringAsFixed(0)}',
+            'â‚¹${product.price.toStringAsFixed(0)}',
             style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: tealDark),
           ),
           const SizedBox(height: 4),
@@ -581,13 +580,13 @@ const SizedBox(height: 18),
 _buildDeliveryCard(),
 const SizedBox(height: 18),
 
-          // ADD TO CART / BUY NOW — right below Quantity
+          // ADD TO CART / BUY NOW â€” right below Quantity
           _buildActionButtons(),
           const SizedBox(height: 24),
           const Divider(height: 1),
           const SizedBox(height: 20),
 
-          // DESCRIPTION + HIGHLIGHTS — at the very end
+          // DESCRIPTION + HIGHLIGHTS â€” at the very end
           _buildDescription(product),
           const SizedBox(height: 10),
           const Divider(height: 1),
@@ -641,7 +640,7 @@ const SizedBox(height: 18),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  'Custom stitched — delivered within 10–15 days',
+                  'Custom stitched â€” delivered within 10â€“15 days',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 13,
@@ -1023,7 +1022,7 @@ const SizedBox(height: 18),
   }
 
   // -------------------------------------------------------------------
-  // ACTION BUTTONS — Add to Cart / View Cart toggle + Buy Now
+  // ACTION BUTTONS â€” Add to Cart / View Cart toggle + Buy Now
   // -------------------------------------------------------------------
 
   Widget _buildActionButtons() {
@@ -1127,7 +1126,7 @@ const SizedBox(height: 18),
           ),
           const SizedBox(height: 8),
           Text(
-            highlights.map((h) => '• $h').join('\n'),
+            highlights.map((h) => 'â€¢ $h').join('\n'),
             style: const TextStyle(
               fontSize: 13,
               color: Colors.grey,
@@ -1246,7 +1245,7 @@ const SizedBox(height: 18),
                   style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
                 ),
               ),
-              Text('★' * rating + '☆' * (5 - rating), style: const TextStyle(color: gold, fontSize: 13)),
+              Text('â˜…' * rating + 'â˜†' * (5 - rating), style: const TextStyle(color: gold, fontSize: 13)),
             ],
           ),
           if (comment.isNotEmpty) ...[

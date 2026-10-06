@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import '../app_colors.dart';
 import '../app_state.dart';
@@ -28,7 +27,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   /// Just READS the current permission status to decide whether to show
   /// the "notifications are off" banner. Does NOT request permission here
-  /// — that already happens once at app startup via NotificationService,
+  /// â€” that already happens once at app startup via NotificationService,
   /// so the native Allow/Block popup shows on first app open, not when
   /// this page is opened.
   Future<void> _checkPermissionStatus() async {

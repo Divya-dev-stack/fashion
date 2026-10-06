@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'app_colors.dart';
@@ -107,7 +106,7 @@ class SavedAddress {
   final String productImage;
   final double amount;
   String status; // Ordered, Processing, Shipping, Delivered, Cancelled
-  // 'paid' or 'pending' — set from the `payment_status` field saved on the
+  // 'paid' or 'pending' â€” set from the `payment_status` field saved on the
   // order document at checkout. Invoice download is only allowed when
   // this is 'paid' (see OrderDetailsPage._showHelpSheet).
   final String paymentStatus;
@@ -165,7 +164,7 @@ enum _Panel {
 }
 
 /// ---------------------------------------------------------------------
-/// SETTINGS PAGE — mirrors settings.html ("My Account")
+/// SETTINGS PAGE â€” mirrors settings.html ("My Account")
 /// ---------------------------------------------------------------------
 class SettingsPage extends StatefulWidget {
   final AppUser? user;
@@ -200,7 +199,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _editingEmail = false;
   bool _editingMobile = false;
 
-  // Notification toggles (persisted locally via SharedPreferences —
+  // Notification toggles (persisted locally via SharedPreferences â€”
   // see _loadNotifPrefs / _setNotifPref for the backend/FCM TODOs
   // needed to actually deliver a push when admin sends one).
   bool _notifOrder = true;
@@ -211,7 +210,7 @@ class _SettingsPageState extends State<SettingsPage> {
   // bool _consentMarketing = true;
   // bool _consentLocation = false;
 
-    // Orders — starts empty. Real orders should be loaded from your
+    // Orders â€” starts empty. Real orders should be loaded from your
   // backend in _loadOrders() (see TODO there); no sample/dummy data.
       bool _loadingOrders = false;
   String _orderFilter = 'all';
@@ -223,7 +222,7 @@ class _SettingsPageState extends State<SettingsPage> {
   // Tracks which Question & Answer items are currently expanded (by index).
   final Set<int> _openQna = {};
 
-  // Super Coins — real balance from Firestore `user_coins/{phone}`.
+  // Super Coins â€” real balance from Firestore `user_coins/{phone}`.
   // Coins start being awarded only from the 6th order onward (2 coins
   // per order), and can only be redeemed once the balance reaches 12.
   bool _loadingCoins = false;
@@ -279,7 +278,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   static const String _supportEmail = 'divyadeveloper2025@gmail.com';
 
-  // Browse FAQs — a short, focused set of account-update questions.
+  // Browse FAQs â€” a short, focused set of account-update questions.
   final List<Map<String, String>> _faqData = const [
     {
       'q': 'What happens when I update my email address (or mobile number)?',
@@ -295,7 +294,7 @@ class _SettingsPageState extends State<SettingsPage> {
     },
   ];
 
-  // Question and Answer — the original order-related question set.
+  // Question and Answer â€” the original order-related question set.
   final List<Map<String, String>> _qnaData = const [
     {
       'q': 'How can I place an order?',
@@ -311,7 +310,7 @@ class _SettingsPageState extends State<SettingsPage> {
     },
     {
       'q': 'How long will it take to receive my order?',
-      'a': 'Custom-stitched orders are usually delivered within 10–15 days, depending on the stitching and order requirements.',
+      'a': 'Custom-stitched orders are usually delivered within 10â€“15 days, depending on the stitching and order requirements.',
     },
     {
       'q': 'Can I change my delivery address after placing an order?',
@@ -388,7 +387,7 @@ class _SettingsPageState extends State<SettingsPage> {
     final state = AppState.instance;
     final newPhone = state.isLoggedIn ? (state.userId ?? '') : '';
     // Only true when the logged-in identity itself changed (login,
-    // logout, or switched account) — not on every unrelated AppState
+    // logout, or switched account) â€” not on every unrelated AppState
     // notification.
     final identityChanged = newPhone != _user.phone;
     if (state.isLoggedIn) {
@@ -967,7 +966,7 @@ class _SettingsPageState extends State<SettingsPage> {
     await prefs.setBool(key, value);
 
     // Subscribe/unsubscribe this device's FCM topic right away, so the
-    // change takes effect immediately — no app restart needed. Once the
+    // change takes effect immediately â€” no app restart needed. Once the
     // Cloud Function in functions/index.js is deployed, admin broadcasts
     // of that type will now reach (or stop reaching) this device.
     final topic = _notifTopicByKey[key];
@@ -1182,7 +1181,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         const SizedBox(height: 18),
 
-        // Quick action grid — icons/labels centered in each cell.
+        // Quick action grid â€” icons/labels centered in each cell.
         GridView.count(
           crossAxisCount: 4,
           shrinkWrap: true,
@@ -1227,13 +1226,13 @@ class _SettingsPageState extends State<SettingsPage> {
         ]),
 
         // Feedback & Information
-        // NOTE: "Terms, Policies and Licenses" row removed from here —
+        // NOTE: "Terms, Policies and Licenses" row removed from here â€”
         // only Browse FAQs stays under this section now.
         _menuCard('FEEDBACK & INFORMATION', [
           _menuRow(Icons.help_outline, 'Browse FAQs', () => _openPanel(_Panel.faq)),
         ]),
 
-        // Logout button — always visible directly below Browse FAQs.
+        // Logout button â€” always visible directly below Browse FAQs.
         _menuCard(null, [
           _menuRow(
             Icons.logout,
@@ -1410,7 +1409,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   // ---------------------------------------------------------------
   // ---------------------------------------------------------------
-  // PROFILE PANEL — locked fields, unlocked via the Edit link
+  // PROFILE PANEL â€” locked fields, unlocked via the Edit link
   // ---------------------------------------------------------------
   Widget _buildProfilePanel() {
     return Column(
@@ -1587,14 +1586,14 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
               const SizedBox(height: 8),
               const Text(
-                "Note: changing mobile number here won't move your past orders — those stay linked to the number you logged in with.",
+                "Note: changing mobile number here won't move your past orders â€” those stay linked to the number you logged in with.",
                 style: TextStyle(fontSize: 11.5, color: AppColors.textLight),
               ),
             ],
           ),
         ),
 
-        // ADDRESS IS NOW INLINE — tapping Edit Profile no longer opens
+        // ADDRESS IS NOW INLINE â€” tapping Edit Profile no longer opens
         // another address page. Saved addresses are visible and editable here.
         _buildInlineAddressSection(),
       ],
@@ -1986,7 +1985,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     children: [
                       Text(o.product, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
                       const SizedBox(height: 6),
-                      Text('₹${o.amount.toStringAsFixed(0)}',
+                      Text('â‚¹${o.amount.toStringAsFixed(0)}',
                           style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 15)),
                     ],
                   ),
@@ -2002,12 +2001,12 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
            void _openOrderDetails(MyOrder o) {
-    // Cancel Order is now always passed through — whether it's
+    // Cancel Order is now always passed through â€” whether it's
     // tappable or greyed-out in the Help sheet is decided inside
     // OrderDetailsPage (see _canCancelOrder there).
     //
     // The invoice must use the address entered for THIS order, not
-    // just whichever saved address is first — so build a one-off
+    // just whichever saved address is first â€” so build a one-off
     // SavedAddress from the order's own `delivery_address` field when
     // available, falling back to the saved address only for older
     // orders that don't have it.
@@ -2150,7 +2149,7 @@ class _SettingsPageState extends State<SettingsPage> {
       });
       if (!mounted) return;
       // MyOrder.cancelledAt is final, so a plain setState() on the local
-      // object can't pick up the new timestamp — reload from Firestore
+      // object can't pick up the new timestamp â€” reload from Firestore
       // instead so the freshly-set cancelled_at comes through.
       await _loadOrders();
       _showToast('Order cancelled successfully');
@@ -2161,7 +2160,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   // ---------------------------------------------------------------
   // ---------------------------------------------------------------
-  // WISHLIST PANEL — product grid; tap a product to view it
+  // WISHLIST PANEL â€” product grid; tap a product to view it
   // ---------------------------------------------------------------
   Widget _buildWishlistPanel() {
     return AnimatedBuilder(
@@ -2323,7 +2322,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '₹${p.price.toStringAsFixed(0)}',
+                          'â‚¹${p.price.toStringAsFixed(0)}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Color(0xFF212121)),
@@ -2346,7 +2345,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         } else {
                           AppState.instance.addToCart(p);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('${p.name} added to cart! 🛒')),
+                            SnackBar(content: Text('${p.name} added to cart! ðŸ›’')),
                           );
                         }
                       },
@@ -2373,7 +2372,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void _showWishlistProduct(Product p) {
     // Wishlist product now opens the same full Product Details page used by
-    // the Shop/Home product cards — not a bottom-sheet preview.
+    // the Shop/Home product cards â€” not a bottom-sheet preview.
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -2382,7 +2381,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  // SUPER COINS PANEL — a wallet balance up top, then a per-order
+  // SUPER COINS PANEL â€” a wallet balance up top, then a per-order
   // "+coins earned" history list below.
   // ---------------------------------------------------------------
     Widget _buildCoinsPanel() {
@@ -2479,8 +2478,8 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _coinHistoryRow(MyOrder o, int orderPosition) {
-    // Coins are only earned from the 6th order onward — 2 coins per
-    // order — matching the award logic run at checkout.
+    // Coins are only earned from the 6th order onward â€” 2 coins per
+    // order â€” matching the award logic run at checkout.
     final earned = orderPosition >= _coinsStartFromOrder ? 2 : 0;
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -2505,7 +2504,7 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 Text(o.product, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13.5)),
                 const SizedBox(height: 2),
-                Text('Order #${o.id} • ₹${o.amount.toStringAsFixed(0)}',
+                Text('Order #${o.id} â€¢ â‚¹${o.amount.toStringAsFixed(0)}',
                     style: const TextStyle(fontSize: 11.5, color: AppColors.textLight)),
               ],
             ),
@@ -2539,7 +2538,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   // ---------------------------------------------------------------
   // ---------------------------------------------------------------
-  // ADDRESSES PANEL — form + Firestore persistence
+  // ADDRESSES PANEL â€” form + Firestore persistence
   // ---------------------------------------------------------------
   Widget _buildAddressesPanel() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -2769,7 +2768,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   // ---------------------------------------------------------------
-  // MANAGE DEVICES PANEL — shows where the account is currently
+  // MANAGE DEVICES PANEL â€” shows where the account is currently
   // logged in (this device). Real multi-device session tracking
   // needs a backend "sessions" collection; wire that up later and
   // populate this list from there.
@@ -2827,7 +2826,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   // ---------------------------------------------------------------
-  // PRIVACY CENTER — full Privacy Policy wording only. Request Data
+  // PRIVACY CENTER â€” full Privacy Policy wording only. Request Data
   // Export, Grievance Redressal and Account Actions have been moved
   // out of this screen (Account Actions now sits under Browse FAQs /
   // Question & Answer instead). A link to the Terms, Policies &
@@ -2848,7 +2847,7 @@ class _SettingsPageState extends State<SettingsPage> {
         const _PolicySection(
           title: '2. Information We Collect',
           body:
-              'To serve you better, we collect basic details such as your name, phone number, email address and delivery address, along with order-specific information like body measurements, fitting notes, fabric/design preferences and any reference images you choose to upload. We also collect payment-related details (such as your UPI ID or transaction reference — we never store full card numbers), plus general browsing patterns, order history, and technical information like your IP address and device/browser type.',
+              'To serve you better, we collect basic details such as your name, phone number, email address and delivery address, along with order-specific information like body measurements, fitting notes, fabric/design preferences and any reference images you choose to upload. We also collect payment-related details (such as your UPI ID or transaction reference â€” we never store full card numbers), plus general browsing patterns, order history, and technical information like your IP address and device/browser type.',
         ),
         const _PolicySection(
           title: '3. How We Use Your Data',
@@ -2897,7 +2896,7 @@ class _SettingsPageState extends State<SettingsPage> {
         const _PolicySection(
           title: '2. Information We Collect',
           body:
-              'To serve you better, we collect basic details such as your name, phone number, email address and delivery address, along with order-specific information like body measurements, fitting notes, fabric/design preferences and any reference images you choose to upload. We also collect payment-related details (such as your UPI ID or transaction reference — we never store full card numbers), plus general browsing patterns, order history, and technical information like your IP address and device/browser type.',
+              'To serve you better, we collect basic details such as your name, phone number, email address and delivery address, along with order-specific information like body measurements, fitting notes, fabric/design preferences and any reference images you choose to upload. We also collect payment-related details (such as your UPI ID or transaction reference â€” we never store full card numbers), plus general browsing patterns, order history, and technical information like your IP address and device/browser type.',
         ),
         const _PolicySection(
           title: '3. How We Use Your Data',
@@ -2955,7 +2954,7 @@ class _SettingsPageState extends State<SettingsPage> {
         const Text('Download Your Personal Data', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         const SizedBox(height: 10),
         const Text(
-          'You have the right to access a full copy of the personal data we hold about you — profile info, order history, saved addresses, wishlist, and Super Coins balance.',
+          'You have the right to access a full copy of the personal data we hold about you â€” profile info, order history, saved addresses, wishlist, and Super Coins balance.',
           style: TextStyle(fontSize: 13, color: AppColors.textLight, height: 1.5),
         ),
         const SizedBox(height: 16),
@@ -3034,7 +3033,7 @@ class _SettingsPageState extends State<SettingsPage> {
   // DE-ACTIVATE ACCOUNT PANEL
   // Mirrors the "when you deactivate your account" info-list pattern,
   // followed by a phone + OTP confirmation step. This is now the ONLY
-  // place this flow lives — Privacy Center just links here.
+  // place this flow lives â€” Privacy Center just links here.
   // -----------------------------------------------------------------
   Widget _buildDeactivatePanel() {
     return Column(
@@ -3150,7 +3149,7 @@ class _SettingsPageState extends State<SettingsPage> {
   // Mirrors the "please ensure you have read and understood" bullet
   // list, permanent-action warning box, 3 required checkboxes, a
   // feedback box, and a red Delete Account button. This is now the
-  // ONLY place this flow lives — Browse FAQs / Question and Answer
+  // ONLY place this flow lives â€” Browse FAQs / Question and Answer
   // just links here, and the back arrow above returns cleanly there.
   // -----------------------------------------------------------------
   Widget _buildDeleteAccountPanel() {
@@ -3286,7 +3285,7 @@ class _SettingsPageState extends State<SettingsPage> {
       children: [
                  _panelHeader('Privacy Policy', Icons.description_outlined, back: _Panel.home),
 
-        // PART A — TERMS
+        // PART A â€” TERMS
         const Text('TERMS OF USE', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.primary)),
         const SizedBox(height: 12),
         const _PolicySection(
@@ -3302,7 +3301,7 @@ class _SettingsPageState extends State<SettingsPage> {
         const _PolicySection(
           title: 'Prohibited Conduct',
           body:
-              'You agree not to use the Platform for unlawful purposes, interfere with its working (hacking, scraping, malicious code), impersonate others, or post defamatory/obscene content — without prejudice to your right to leave honest feedback about your experience.',
+              'You agree not to use the Platform for unlawful purposes, interfere with its working (hacking, scraping, malicious code), impersonate others, or post defamatory/obscene content â€” without prejudice to your right to leave honest feedback about your experience.',
         ),
         const _PolicySection(
           title: 'Liability, Governing Law & Changes',
@@ -3311,7 +3310,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
 
         const SizedBox(height: 16),
-        // PART B — POLICIES
+        // PART B â€” POLICIES
         const Text('POLICIES', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.primary)),
         const SizedBox(height: 12),
         const _PolicySection(
@@ -3341,7 +3340,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
 
         const SizedBox(height: 16),
-        // PART C — LICENSES
+        // PART C â€” LICENSES
         const Text('LICENSES', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.primary)),
         const SizedBox(height: 12),
         const _PolicySection(
@@ -3352,12 +3351,12 @@ class _SettingsPageState extends State<SettingsPage> {
         const _PolicySection(
           title: 'Intellectual Property & Trademarks',
           body:
-              'All content on the Platform — our brand name, logo, designs, photographs, text and graphics — is the property of Sumathi\'s Style. "Sumathi\'s Style" and associated branding are our trademarks; no license is granted to use them without our prior written permission.',
+              'All content on the Platform â€” our brand name, logo, designs, photographs, text and graphics â€” is the property of Sumathi\'s Style. "Sumathi\'s Style" and associated branding are our trademarks; no license is granted to use them without our prior written permission.',
         ),
         const _PolicySection(
           title: 'User-Generated Content License',
           body:
-              'If you upload reference images, design ideas, or reviews, you grant us a limited, non-exclusive license to use that content to process your order or — with separate consent — showcase customer feedback.',
+              'If you upload reference images, design ideas, or reviews, you grant us a limited, non-exclusive license to use that content to process your order or â€” with separate consent â€” showcase customer feedback.',
         ),
         const _PolicySection(
           title: 'Third-Party / Open-Source & Restrictions',
@@ -3369,7 +3368,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   // ---------------------------------------------------------------
-  // BROWSE FAQs PANEL — short set of email/mobile update questions.
+  // BROWSE FAQs PANEL â€” short set of email/mobile update questions.
   // ---------------------------------------------------------------
 Widget _buildFaqPanel() {
   return Column(
@@ -3526,7 +3525,7 @@ Widget _buildFaqPanel() {
       _plainSectionTitle('Account Actions'),
 
       const Text(
-        'Need a break, or want to leave us for good? Choose an option below — each one explains exactly what happens before you confirm anything.',
+        'Need a break, or want to leave us for good? Choose an option below â€” each one explains exactly what happens before you confirm anything.',
         style: TextStyle(
           fontSize: 12.5,
           color: AppColors.textLight,
@@ -3556,8 +3555,8 @@ Widget _buildFaqPanel() {
 }
 
   // ---------------------------------------------------------------
-  // QUESTION & ANSWER PANEL — the original 10 order-related questions.
-  // No Account Actions here — those live only under Browse FAQs.
+  // QUESTION & ANSWER PANEL â€” the original 10 order-related questions.
+  // No Account Actions here â€” those live only under Browse FAQs.
   // ---------------------------------------------------------------
 Widget _buildQnaPanel() {
   return Column(
@@ -3740,7 +3739,7 @@ Widget _buildQnaPanel() {
         ),
         const SizedBox(height: 10),
         const Text(
-          "Whether it's about the app or our website, feel free to reach out to us here — we're happy to help either way.",
+          "Whether it's about the app or our website, feel free to reach out to us here â€” we're happy to help either way.",
           style: TextStyle(fontSize: 13, color: AppColors.textLight, height: 1.6),
           textAlign: TextAlign.center,
         ),
@@ -3781,7 +3780,7 @@ Widget _buildQnaPanel() {
   }
 
   // ---------------------------------------------------------------
-  // MY REVIEWS PANEL — matches the Catering Reviews UI style.
+  // MY REVIEWS PANEL â€” matches the Catering Reviews UI style.
   // ---------------------------------------------------------------
   double get _averageRating {
     if (_reviews.isEmpty) return 0;
@@ -3856,7 +3855,7 @@ Widget _buildQnaPanel() {
                     ),
                     const SizedBox(height: 2),
                     const Text(
-                      '★★★★★',
+                      'â˜…â˜…â˜…â˜…â˜…',
                       style: TextStyle(
                         color: AppColors.secondary,
                         fontSize: 16,
@@ -3881,7 +3880,7 @@ Widget _buildQnaPanel() {
                           ? 0.0
                           : count / _reviews.length;
 
-                      return _reviewRatingBar('$stars★', percent);
+                      return _reviewRatingBar('$starsâ˜…', percent);
                     }).toList(),
                   ),
                 ),
@@ -4118,7 +4117,7 @@ Widget _buildQnaPanel() {
               ),
               const SizedBox(width: 8),
               Text(
-                '★' * rating + '☆' * (5 - rating),
+                'â˜…' * rating + 'â˜†' * (5 - rating),
                 style: const TextStyle(
                   color: AppColors.secondary,
                   fontSize: 13,
@@ -4266,7 +4265,7 @@ class _BulletLine extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.only(top: 2),
-            child: Text('•  ', style: TextStyle(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.bold)),
+            child: Text('â€¢  ', style: TextStyle(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.bold)),
           ),
           Expanded(
             child: Text(text, style: const TextStyle(fontSize: 12.5, color: AppColors.textLight, height: 1.6)),
@@ -4278,11 +4277,11 @@ class _BulletLine extends StatelessWidget {
 }
 
 /// ---------------------------------------------------------------------
-/// ORDER DETAILS PAGE — full order detail screen, opened when a My
+/// ORDER DETAILS PAGE â€” full order detail screen, opened when a My
 /// Orders card is tapped. Shows product, order id (copyable), the same
 /// status timeline used in the orders list, doorstep tips and our
 /// delivery promise. Help sheet always shows 3 actions: Chat with us,
-/// Cancel Order, and Download Invoice — Cancel Order and Download
+/// Cancel Order, and Download Invoice â€” Cancel Order and Download
 /// Invoice are greyed-out / non-clickable when not currently eligible
 /// (see _canCancelOrder and _canDownloadInvoice below), rather than
 /// being hidden entirely.
@@ -4351,7 +4350,7 @@ class _BulletLine extends StatelessWidget {
      bool get _canDownloadInvoice =>
       order.paymentStatus.toLowerCase() == 'paid' && order.status != 'Cancelled';
 
-  // Payment status pill shown on this page — 'paid' (from admin's
+  // Payment status pill shown on this page â€” 'paid' (from admin's
   // payment_status field) shows green "Paid", anything else (including
   // the default 'pending') shows amber/yellow "Payment Pending". Same
   // colour pair the admin dashboard uses for its own Pending/Paid badge,
@@ -4392,7 +4391,7 @@ class _BulletLine extends StatelessWidget {
   }
 
   // -------------------------------------------------------------------
-  // HELP SHEET — always shows 3 actions: Chat with us, Cancel Order,
+  // HELP SHEET â€” always shows 3 actions: Chat with us, Cancel Order,
   // Download Invoice. Cancel Order / Download Invoice are greyed-out
   // and non-clickable when not currently eligible instead of being
   // hidden.
@@ -4431,7 +4430,7 @@ class _BulletLine extends StatelessWidget {
                   subtitle: _canCancelOrder
                       ? 'Cancel this order if stitching has not started'
                       : (order.status != 'Ordered'
-                          ? 'Cancellation window closed — stitching has already started'
+                          ? 'Cancellation window closed â€” stitching has already started'
                           : 'Cancellation window has closed'),
                   danger: true,
                   enabled: _canCancelOrder,
@@ -4517,9 +4516,9 @@ class _BulletLine extends StatelessWidget {
   }
 
   // -------------------------------------------------------------------
-  // CHAT WITH US — a lightweight automated assistant. Questions are
+  // CHAT WITH US â€” a lightweight automated assistant. Questions are
   // shown one-by-one as a vertical list of separate cards (each with
-  // its own spacing) — tap a question to instantly reveal its answer
+  // its own spacing) â€” tap a question to instantly reveal its answer
   // in the chat below. Any custom message typed by the customer now
   // gets an automatic reply pointing them straight to Sumathi's Style
   // office contact number for direct help.
@@ -4534,7 +4533,7 @@ class _BulletLine extends StatelessWidget {
           ? "Yes, this order is still eligible for cancellation. Use the 'Cancel Order' option in Help."
           : "This order can no longer be cancelled from the app. Please call or mail us if it's urgent.",
       'I have a fitting issue':
-          'For fitting issues, please contact us within 3 days of delivery — alteration is free of cost.',
+          'For fitting issues, please contact us within 3 days of delivery â€” alteration is free of cost.',
       'How do I get a refund?':
           'Refunds (if applicable) are processed within 5-7 business days after a cancellation is confirmed.',
     };
@@ -4710,14 +4709,14 @@ class _BulletLine extends StatelessWidget {
   }
 
   // -------------------------------------------------------------------
-  // DOWNLOAD INVOICE — builds a one-page Sumathi's Style bill PDF with
+  // DOWNLOAD INVOICE â€” builds a one-page Sumathi's Style bill PDF with
   // the business logo + a small QR code (encodes the order id), our
   // business details, the customer's own delivery address, date/time,
   // order id, product details, delivery charge, product amount and
   // total, then opens the native share/print sheet.
   //
   // NOTE: the product description printed here is exactly what's saved
-  // in the order's `product` field at checkout — if you want it to say
+  // in the order's `product` field at checkout â€” if you want it to say
   // something like "Zari Silver Blouse" instead of just "blouse", save
   // that fuller description in the `product` field when the order is
   // placed (in your checkout code), not here.
@@ -4771,7 +4770,7 @@ class _BulletLine extends StatelessWidget {
                             pw.Text("Sumathi's Style",
                                 style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold)),
                             pw.SizedBox(height: 2),
-                            pw.Text('$_bizName — $_bizCategory',
+                            pw.Text('$_bizName â€” $_bizCategory',
                                 style: const pw.TextStyle(fontSize: 9)),
                             pw.SizedBox(height: 2),
                             pw.Text('GSTIN: N/A', style: const pw.TextStyle(fontSize: 8.5)),
@@ -4779,7 +4778,7 @@ class _BulletLine extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Small GPay-scanner-style QR code — kept compact.
+                    // Small GPay-scanner-style QR code â€” kept compact.
                     pw.BarcodeWidget(
                       barcode: pw.Barcode.qrCode(),
                       data: 'Order #${order.id}',
@@ -5114,7 +5113,7 @@ class _BulletLine extends StatelessWidget {
                       children: [
                         Text(order.product, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14.5)),
                         const SizedBox(height: 6),
-                        Text('₹${order.amount.toStringAsFixed(0)}',
+                        Text('â‚¹${order.amount.toStringAsFixed(0)}',
                             style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 15)),
                       ],
                     ),
@@ -5176,7 +5175,7 @@ class _BulletLine extends StatelessWidget {
                           const SizedBox(width: 8),
                           const Expanded(
                             child: Text(
-                              'Custom stitched — delivered within 10-15 days from order confirmation.',
+                              'Custom stitched â€” delivered within 10-15 days from order confirmation.',
                               style: TextStyle(fontSize: 12, color: AppColors.textLight, height: 1.5),
                             ),
                           ),

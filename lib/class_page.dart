@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'app_colors.dart';
@@ -45,7 +44,7 @@ class ClassPage extends StatelessWidget {
           'Learn traditional South Indian aari embroidery. Master chain stitch, bead work, and zardosi patterns.',
       duration: '1 Month',
       students: '2000 Students',
-      price: '₹10,000',
+      price: 'â‚¹10,000',
     ),
 
     ClassItem(
@@ -55,7 +54,7 @@ class ClassPage extends StatelessWidget {
           'Complete course from basics to advanced. Measurements, cutting, stitching for all garments.',
       duration: '6 Months',
       students: '1500 Students',
-      price: '₹2,000',
+      price: 'â‚¹2,000',
     ),
 
     ClassItem(
@@ -65,7 +64,7 @@ class ClassPage extends StatelessWidget {
           'Master perfect saree pleating. Different styles, petticoat stitching, draping techniques.',
       duration: '1 Week',
       students: '500 Students',
-      price: '₹2,000',
+      price: 'â‚¹2,000',
     ),
   ];
 
@@ -266,7 +265,7 @@ class _ClassCard extends StatelessWidget {
     //
     // IntrinsicHeight measures the tallest child (the text column)
     // and gives the image column that same bounded height, instead
-    // of a hardcoded number — so the card grows to fit its content
+    // of a hardcoded number â€” so the card grows to fit its content
     // and never overflows, no matter the font/device.
     return Container(
       decoration: BoxDecoration(
@@ -393,7 +392,7 @@ class _ClassCard extends StatelessWidget {
                                 Icons.currency_rupee,
                             label:
                                 item.price.replaceAll(
-                              '₹',
+                              'â‚¹',
                               '',
                             ),
                           ),

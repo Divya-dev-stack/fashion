@@ -1,7 +1,6 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +13,7 @@ import 'api_service.dart';
 import 'services/onesignal_service.dart';
 
 /// ---------------------------------------------------------------------
-/// CARD INPUT FORMATTERS — auto space every 4 digits on Card Number,
+/// CARD INPUT FORMATTERS â€” auto space every 4 digits on Card Number,
 /// auto insert "/" after MM on Expiry (MM/YY).
 /// ---------------------------------------------------------------------
 
@@ -109,7 +108,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   final TextEditingController _pincodeCtrl = TextEditingController();
 
   // Card fields shown on the Payments step. Actual secure card entry
-  // still happens inside Razorpay's own checkout sheet (PCI-compliant) —
+  // still happens inside Razorpay's own checkout sheet (PCI-compliant) â€”
   // these are just the visible Flipkart-style fields on our screen.
   final TextEditingController _cardNumberCtrl = TextEditingController();
   final TextEditingController _cardExpiryCtrl = TextEditingController();
@@ -178,7 +177,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   String? _razorpaySignature;
 
   // -------------------------------------------------------------------
-  // BACKEND — Vercel-hosted create-order / verify-payment endpoints.
+  // BACKEND â€” Vercel-hosted create-order / verify-payment endpoints.
   // Real server-side signature verification happens here (Key Secret
   // stays on Vercel as an environment variable, never in this app).
   // -------------------------------------------------------------------
@@ -306,7 +305,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       // Fall through to the delivery-location fallback below.
     }
 
-    // No saved address on file yet — fall back to whatever address the
+    // No saved address on file yet â€” fall back to whatever address the
     // user already picked earlier (Home / Shop / Cart / Product Details
     // pages all write to AppState.deliveryLocation via LocationPickerSheet).
     if (!mounted) return;
@@ -371,7 +370,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       return;
     }
 
-    // PAYMENT — handled inline by each accordion section's own button now,
+    // PAYMENT â€” handled inline by each accordion section's own button now,
     // but the bottom bar still works as a fallback trigger for whichever
     // method is currently selected.
     if (_step == 2) {
@@ -403,7 +402,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   // ===================================================================
-  // RAZORPAY PAYMENT — order is created on the Vercel backend first,
+  // RAZORPAY PAYMENT â€” order is created on the Vercel backend first,
   // then Razorpay's checkout sheet is opened with that order_id.
   // ===================================================================
 
@@ -422,7 +421,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     });
 
     try {
-      // Lock in the amount we're about to charge right now — this is
+      // Lock in the amount we're about to charge right now â€” this is
       // the single source of truth for what gets saved to Firestore
       // later, so it can never drift from what Razorpay actually charged.
       _paidAmount = _total;
@@ -457,7 +456,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         throw Exception('Razorpay order ID missing');
       }
 
-      // Razorpay's own checkout sheet — this is what shows the native
+      // Razorpay's own checkout sheet â€” this is what shows the native
       // UPI app picker (Google Pay / PhonePe / Paytm) and the card
       // entry screen. We don't need to build those ourselves; the card
       // fields on our screen are only a Flipkart-style visual cue.
@@ -516,7 +515,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   // ===================================================================
-  // VERIFY PAYMENT — server confirms the signature is genuine before
+  // VERIFY PAYMENT â€” server confirms the signature is genuine before
   // we treat the order as paid.
   // ===================================================================
 
@@ -602,7 +601,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     final db = FirebaseFirestore.instance;
 
     // Use the amount that was actually locked in and charged via
-    // Razorpay — never recompute from _total here, since the cart/items
+    // Razorpay â€” never recompute from _total here, since the cart/items
     // could have changed in the time between starting payment and this
     // callback firing, which was causing the wrong amount to be saved.
     final double orderTotal = _paidAmount ?? _total;
@@ -638,8 +637,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
     OneSignalService.instance.sendPushToRole(
       'admin',
-      '🛒 New Order Received',
-      '${_nameCtrl.text.trim()} — $productNames (₹${orderTotal.toStringAsFixed(0)})',
+      'ðŸ›’ New Order Received',
+      '${_nameCtrl.text.trim()} â€” $productNames (â‚¹${orderTotal.toStringAsFixed(0)})',
     );
 
     await _completeLocalOrder(orderTotal, _payment, orderId);
@@ -697,8 +696,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
       OneSignalService.instance.sendPushToRole(
         'admin',
-        '🛒 New Order Received',
-        '${_nameCtrl.text.trim()} — $productNames (₹${orderTotal.toStringAsFixed(0)})',
+        'ðŸ›’ New Order Received',
+        '${_nameCtrl.text.trim()} â€” $productNames (â‚¹${orderTotal.toStringAsFixed(0)})',
       );
 
       await _completeLocalOrder(orderTotal, PaymentMethod.cod, orderId);
@@ -735,7 +734,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
     state.addNotification(
       'Order Placed',
-      'Your order of ₹${orderTotal.toStringAsFixed(0)} has been placed successfully.',
+      'Your order of â‚¹${orderTotal.toStringAsFixed(0)} has been placed successfully.',
     );
 
     if (!mounted) {
@@ -812,7 +811,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       ),
 
       // ---------------------------------------------------------------
-      // BOTTOM BUTTON — hidden on the Payments step since each accordion
+      // BOTTOM BUTTON â€” hidden on the Payments step since each accordion
       // section now has its own inline Pay / Place Order button.
       // ---------------------------------------------------------------
 
@@ -1294,14 +1293,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        '₹${product.price.toStringAsFixed(0)} × $qty',
+                        'â‚¹${product.price.toStringAsFixed(0)} Ã— $qty',
                         style: const TextStyle(color: AppColors.textLight, fontSize: 12),
                       ),
                     ],
                   ),
                 ),
                 Text(
-                  '₹${itemTotal.toStringAsFixed(0)}',
+                  'â‚¹${itemTotal.toStringAsFixed(0)}',
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ],
@@ -1320,17 +1319,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
           child: Column(
             children: [
-              _priceRow('Subtotal', '₹${_subtotal.toStringAsFixed(0)}'),
+              _priceRow('Subtotal', 'â‚¹${_subtotal.toStringAsFixed(0)}'),
               const SizedBox(height: 8),
               _priceRow(
                 'Delivery',
-                _delivery == 0 ? 'FREE' : '₹${_delivery.toStringAsFixed(0)}',
+                _delivery == 0 ? 'FREE' : 'â‚¹${_delivery.toStringAsFixed(0)}',
                 valueColor: _delivery == 0 ? Colors.green : null,
               ),
               const Divider(height: 22),
               _priceRow(
                 'Total Amount',
-                '₹${_total.toStringAsFixed(0)}',
+                'â‚¹${_total.toStringAsFixed(0)}',
                 bold: true,
               ),
             ],
@@ -1389,7 +1388,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   // ===================================================================
-  // PAYMENT SCREEN — Flipkart/Razorpay-native accordion style
+  // PAYMENT SCREEN â€” Flipkart/Razorpay-native accordion style
   // ===================================================================
 
   Widget _buildPaymentStep() {
@@ -1441,7 +1440,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 ],
               ),
               Text(
-                '₹${_total.toStringAsFixed(0)}',
+                'â‚¹${_total.toStringAsFixed(0)}',
                 style: TextStyle(color: AppColors.primary, fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],
@@ -1451,7 +1450,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         const SizedBox(height: 14),
 
         // -------------------------------------------------------------
-        // UPI — expands to Google Pay + "Pay with other UPI Apps",
+        // UPI â€” expands to Google Pay + "Pay with other UPI Apps",
         // both open Razorpay's own native UPI picker.
         // -------------------------------------------------------------
 
@@ -1466,7 +1465,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         const SizedBox(height: 10),
 
         // -------------------------------------------------------------
-        // CARD — expands to Card Number / Valid Thru / CVV fields +
+        // CARD â€” expands to Card Number / Valid Thru / CVV fields +
         // Pay button. Actual entry happens in Razorpay's secure sheet.
         // -------------------------------------------------------------
 
@@ -1481,7 +1480,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         const SizedBox(height: 10),
 
         // -------------------------------------------------------------
-        // COD — fully available, places order directly (no Razorpay)
+        // COD â€” fully available, places order directly (no Razorpay)
         // -------------------------------------------------------------
 
         _accordionTile(
@@ -1495,7 +1494,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
         const SizedBox(height: 10),
 
-        // EMI — not offered, shown disabled to match the reference layout.
+        // EMI â€” not offered, shown disabled to match the reference layout.
         _disabledTile(
           icon: Icons.calendar_month_outlined,
           title: 'EMI',
@@ -1539,7 +1538,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   // ===================================================================
-  // ACCORDION TILE — header (icon, title, subtitle/tag, chevron) +
+  // ACCORDION TILE â€” header (icon, title, subtitle/tag, chevron) +
   // collapsible content, single-open behaviour.
   // ===================================================================
 
@@ -1625,7 +1624,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   // ===================================================================
-  // EMI — always disabled/unavailable, non-interactive
+  // EMI â€” always disabled/unavailable, non-interactive
   // ===================================================================
 
   Widget _disabledTile({required IconData icon, required String title}) {
@@ -1700,7 +1699,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           child: CircularProgressIndicator(strokeWidth: 2.2),
                         )
                       : Text(
-                          'Pay ₹${_total.toStringAsFixed(0)}',
+                          'Pay â‚¹${_total.toStringAsFixed(0)}',
                           style: const TextStyle(fontWeight: FontWeight.w700),
                         ),
                 ),
@@ -1881,7 +1880,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       child: CircularProgressIndicator(strokeWidth: 2.2),
                     )
                   : Text(
-                      'Pay ₹${_total.toStringAsFixed(0)}',
+                      'Pay â‚¹${_total.toStringAsFixed(0)}',
                       style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
             ),
@@ -1925,7 +1924,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     child: CircularProgressIndicator(strokeWidth: 2.2),
                   )
                 : Text(
-                    'Place Order  •  ₹${_total.toStringAsFixed(0)}',
+                    'Place Order  â€¢  â‚¹${_total.toStringAsFixed(0)}',
                     style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
           ),
@@ -2020,7 +2019,7 @@ class _OrderSuccessPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '₹${total.toStringAsFixed(0)}',
+                        'â‚¹${total.toStringAsFixed(0)}',
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,

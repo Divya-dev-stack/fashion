@@ -1,6 +1,5 @@
-import 'dart:math' as math;
+﻿import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'package:sendotp_flutter_sdk/sendotp_flutter_sdk.dart';
 
 class OtpVerifyPage extends StatefulWidget {
@@ -119,7 +118,7 @@ class _OtpVerifyPageState extends State<OtpVerifyPage>
 
     _mainAnimationController.forward();
 
-    // Demo OTP popup removed — real SMS is sent by MSG91 now.
+    // Demo OTP popup removed â€” real SMS is sent by MSG91 now.
   }
 
   // ------------------------------------------------------------
@@ -372,7 +371,7 @@ class _OtpVerifyPageState extends State<OtpVerifyPage>
                           ),
                           child: filled
                               ? const Text(
-                                  "●",
+                                  "â—",
                                   key: ValueKey("filled"),
                                   style: TextStyle(
                                     color: gold,
@@ -905,7 +904,7 @@ class _OtpVerifyPageState extends State<OtpVerifyPage>
                                     const SizedBox(height: 8),
 
                                     const Text(
-                                      "Style that speaks for you ♡",
+                                      "Style that speaks for you â™¡",
                                       style: TextStyle(
                                         color: greyText,
                                         fontSize: 13,

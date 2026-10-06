@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'app_colors.dart';
@@ -118,7 +117,7 @@ class ContactPage extends StatelessWidget {
         children: [
           const _SectionHeader(
             title: 'Contact Us',
-            subtitle: 'Get in touch — 30 years of trust',
+            subtitle: 'Get in touch â€” 30 years of trust',
           ),
 
           const SizedBox(height: 22),
@@ -202,7 +201,7 @@ class ContactPage extends StatelessWidget {
 
           // -----------------------------------------------------
           // SOCIAL BUTTONS
-          // FIXED: buttons were reported as too big — reduced
+          // FIXED: buttons were reported as too big â€” reduced
           // childAspectRatio (shorter boxes), tighter spacing,
           // and smaller icon/text sizes.
           // -----------------------------------------------------

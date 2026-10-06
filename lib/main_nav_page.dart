@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
+﻿import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import 'app_state.dart';
 import 'home_page.dart';
@@ -11,12 +10,12 @@ import 'responsive.dart';
 import 'login_page.dart';
 
 /// ---------------------------------------------------------------------
-/// MAIN NAV PAGE — the app shell with the bottom nav bar.
+/// MAIN NAV PAGE â€” the app shell with the bottom nav bar.
 /// 4 tabs: Home, Shop, Service (Catering), Profile (Settings).
 /// This is the widget you set as `home:` in main.dart instead of
 /// HomePage directly.
 ///
-/// NOTE: Cart is intentionally NOT a bottom-nav tab — it's reachable via
+/// NOTE: Cart is intentionally NOT a bottom-nav tab â€” it's reachable via
 /// the cart icon in HomePage's header. If you want it back as a tab,
 /// just add a 5th _navItem + page below.
 /// ---------------------------------------------------------------------

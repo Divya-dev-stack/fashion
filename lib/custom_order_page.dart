@@ -1,6 +1,6 @@
-// custom_order_page.dart
+﻿// custom_order_page.dart
 // Flutter version of the "Customized Order" section from index.html
-// (id="custom"). Mobile-first: feature strip + heading on top, form below —
+// (id="custom"). Mobile-first: feature strip + heading on top, form below â€”
 // same content/behaviour as the website's .custom-order block.
 //
 // NOW CONNECTED TO FIREBASE (Firestore) instead of the
@@ -9,17 +9,17 @@
 // SETUP:
 //   1. flutter pub add cloud_firestore record path_provider audioplayers
 //      (permission is handled internally by the `record` package on both
-//      Android and iOS, so you do NOT need permission_handler separately —
+//      Android and iOS, so you do NOT need permission_handler separately â€”
 //      but you DO need to declare the mic permission in your platform
 //      manifests, see below.)
 //   2. Make sure Firebase.initializeApp() is already called in main.dart
 //      (it should be, since firebase_options.dart exists in this project).
-//   3. Voice recording is REAL — it uses the device microphone via the
+//   3. Voice recording is REAL â€” it uses the device microphone via the
 //      `record` package, saves an .m4a file temporarily, converts the audio
 //      bytes to Base64, and saves the Base64 string in the Firestore order.
 //      Keep recordings short (for example, under about 30 seconds) so the
 //      Firestore document stays within its 1MB document-size limit.
-//   4. Voice PLAYBACK is REAL too — uses `audioplayers` to let the user
+//   4. Voice PLAYBACK is REAL too â€” uses `audioplayers` to let the user
 //      listen back to their own recording (play/pause + seek bar) before
 //      submitting the order.
 //
@@ -35,7 +35,6 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fashion/adaptive_layout.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:record/record.dart';
@@ -273,7 +272,7 @@ class _CustomOrderPageState extends State<CustomOrderPage> {
 
       return base64Encode(bytes);
     } catch (e) {
-      debugPrint('❌ Voice note Base64 conversion failed: $e');
+      debugPrint('âŒ Voice note Base64 conversion failed: $e');
       if (mounted) {
         _showSnack(
           'Voice note could not be prepared. Please try again.',
@@ -321,7 +320,7 @@ class _CustomOrderPageState extends State<CustomOrderPage> {
 
       final db = FirebaseFirestore.instance;
 
-      // Simple running sequence number across ALL orders — 1, 2, 3...
+      // Simple running sequence number across ALL orders â€” 1, 2, 3...
       final snap = await db.collection('orders').get();
       final orderNumber = snap.docs.length + 1;
 
@@ -343,7 +342,7 @@ class _CustomOrderPageState extends State<CustomOrderPage> {
         'created_at': FieldValue.serverTimestamp(),
       });
 
-      _showSnack('Custom order submitted! We will contact you soon. 📞');
+      _showSnack('Custom order submitted! We will contact you soon. ðŸ“ž');
       _formKey.currentState?.reset();
       _nameController.clear();
       _phoneController.clear();
@@ -443,8 +442,8 @@ class _CustomOrderPageState extends State<CustomOrderPage> {
           ),
           const SizedBox(height: 14),
           const Text(
-            "Turn Your Dream Outfit Into Reality! ✂️ Got a special occasion, "
-            "a wedding, or your own design idea in mind? Just tell us — "
+            "Turn Your Dream Outfit Into Reality! âœ‚ï¸ Got a special occasion, "
+            "a wedding, or your own design idea in mind? Just tell us â€” "
             "we'll custom stitch it for you. Perfect fit, your style, "
             "your choice.",
             textAlign: TextAlign.center,
@@ -798,7 +797,7 @@ class _CustomOrderPageState extends State<CustomOrderPage> {
                     _isRecording
                         ? 'Recording... Tap to stop'
                         : (_hasRecording
-                            ? 'Voice recorded (${_formatDuration(_recordDuration)}) — tap to re-record'
+                            ? 'Voice recorded (${_formatDuration(_recordDuration)}) â€” tap to re-record'
                             : 'Tap to record voice message'),
                     style: const TextStyle(
                       fontSize: 13,
@@ -811,7 +810,7 @@ class _CustomOrderPageState extends State<CustomOrderPage> {
           ),
         ),
 
-        // Playback tile — only shown once a recording exists and we're
+        // Playback tile â€” only shown once a recording exists and we're
         // not actively recording a new one.
         if (_hasRecording && !_isRecording) ...[
           const SizedBox(height: 10),
