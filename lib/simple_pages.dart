@@ -3,6 +3,7 @@
 // About Us, Contact Us, Terms & Conditions, and Order History.
 
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 import 'api_service.dart';
 
 // ---------------- ABOUT US ----------------

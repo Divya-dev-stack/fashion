@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 
 class BannerSlider extends StatefulWidget {
   const BannerSlider({super.key});
@@ -53,13 +54,13 @@ class _BannerSliderState extends State<BannerSlider> {
 
   @override
   Widget build(BuildContext context) {
-    bool desktop = MediaQuery.of(context).size.width > 900;
+    final bool desktop = Adaptive.isWebLayout(context);
 
     return Column(
       children: [
 
         SizedBox(
-          height: desktop ? 420 : 200,
+          height: desktop ? 360 : 200,
 
           child: PageView.builder(
             controller: _controller,

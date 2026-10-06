@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'app_colors.dart';

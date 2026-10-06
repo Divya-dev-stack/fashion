@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 import 'package:sendotp_flutter_sdk/sendotp_flutter_sdk.dart';
 
 class OtpVerifyPage extends StatefulWidget {

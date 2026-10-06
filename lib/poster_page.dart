@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PosterPage extends StatefulWidget {

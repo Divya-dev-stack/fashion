@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sendotp_flutter_sdk/sendotp_flutter_sdk.dart';

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool desktop = MediaQuery.of(context).size.width > 900;
+    final bool desktop = Adaptive.isWebLayout(context);
 
     final List<Map<String, dynamic>> categories = [
       {"icon": Icons.checkroom, "title": "Women"},
@@ -20,7 +21,7 @@ class CategorySection extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: desktop ? 40 : 16,
+        horizontal: desktop ? 0 : 16,
         vertical: 20,
       ),
       child: Column(

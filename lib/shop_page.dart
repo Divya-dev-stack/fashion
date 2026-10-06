@@ -18,6 +18,7 @@
 // ------------------------------------------------------------
 
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 
 import 'api_service.dart';
 import 'app_colors.dart';

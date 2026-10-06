@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 import 'app_colors.dart';
 import 'app_state.dart';
 import 'home_page.dart';

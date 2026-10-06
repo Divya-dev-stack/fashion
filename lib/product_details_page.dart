@@ -1,5 +1,6 @@
 // product_details_page.dart
 import 'package:flutter/material.dart';
+import 'package:fashion/adaptive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'app_state.dart';
