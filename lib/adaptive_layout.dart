@@ -1,73 +1,122 @@
 // adaptive_layout.dart
-// Put this in lib/ and import it wherever needed:
-//   import 'adaptive_layout.dart';
 //
-// Rule:
-//   Website on laptop (kIsWeb + wide screen)  -> WEBSITE layout
-//   Installed app / phone / narrow browser    -> APP layout
+// Central responsive layout system for the whole app.
+//
+// Website:
+//   Flutter Web + screen width >= 700
+//
+// App:
+//   Installed app / phone / narrow browser
+//
+// Use this file only where Adaptive / AdaptivePage / AdaptiveGrid
+// is actually needed.
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-// ---------------------------------------------------------------------------
-// 1. CORE HELPER  (use this everywhere instead of checking width yourself)
-// ---------------------------------------------------------------------------
 class Adaptive {
-  static double width(BuildContext c) => MediaQuery.of(c).size.width;
+  /// Current screen width.
+  static double width(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
 
-  /// true  -> show website layout (laptop browser)
-  /// false -> show app layout (installed app or phone)
-  static bool isWebLayout(BuildContext c) => kIsWeb && width(c) >= 700;
+  /// True when running as a wide website.
+  static bool isWebLayout(BuildContext context) {
+    return kIsWeb && width(context) >= 700;
+  }
 
-  static bool isAppLayout(BuildContext c) => !isWebLayout(c);
+  /// True for mobile / installed app / narrow browser.
+  static bool isAppLayout(BuildContext context) {
+    return !isWebLayout(context);
+  }
 
-  /// Number of grid columns: app = 2, web = 3 / 4 / 5 by screen width
-  static int gridCount(BuildContext c) {
-    if (isAppLayout(c)) return 2;
-    final w = width(c);
-    if (w >= 1300) return 5;
-    if (w >= 1000) return 4;
+  /// Grid columns.
+  ///
+  /// App:
+  ///   2 columns
+  ///
+  /// Website:
+  ///   3 columns -> smaller laptop
+  ///   4 columns -> medium desktop
+  ///   5 columns -> large desktop
+  static int gridCount(BuildContext context) {
+    if (isAppLayout(context)) {
+      return 2;
+    }
+
+    final w = width(context);
+
+    if (w >= 1400) {
+      return 5;
+    }
+
+    if (w >= 1050) {
+      return 4;
+    }
+
     return 3;
   }
 
-  /// Max width of page content on website
-  static double maxWidth(BuildContext c) {
-    final w = width(c);
-    if (w >= 1300) return 1280;
-    if (w >= 1100) return 1100;
+  /// Main website content width.
+  ///
+  /// This is intentionally wider so pages don't get trapped
+  /// inside a small ~800px desktop container.
+  static double maxWidth(BuildContext context) {
+    final w = width(context);
+
+    if (w >= 1600) {
+      return 1400;
+    }
+
+    if (w >= 1300) {
+      return 1250;
+    }
+
+    if (w >= 1000) {
+      return 1100;
+    }
+
     return w;
   }
 
-  /// Use for page AppBar: hides it on website (top navbar is already there)
-  ///   appBar: Adaptive.pageAppBar(context, AppBar(title: Text('Cart')))
-  static PreferredSizeWidget? pageAppBar(BuildContext c, PreferredSizeWidget bar) {
-    return isWebLayout(c) ? null : bar;
+  /// App pages can keep their own AppBar.
+  /// Website already has the top navigation bar.
+  static PreferredSizeWidget? pageAppBar(
+    BuildContext context,
+    PreferredSizeWidget bar,
+  ) {
+    return isWebLayout(context) ? null : bar;
   }
 }
 
 // ---------------------------------------------------------------------------
-// 2. AdaptivePage  -> wrap ANY page body with this
-//    App     : returns child as it is (no change)
-//    Website : centers content with max width
-//
-//    body: AdaptivePage(child: YourExistingBody())
+// AdaptivePage
 // ---------------------------------------------------------------------------
+
 class AdaptivePage extends StatelessWidget {
   final Widget child;
   final double? maxWidth;
-  const AdaptivePage({super.key, required this.child, this.maxWidth});
+
+  const AdaptivePage({
+    super.key,
+    required this.child,
+    this.maxWidth,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (Adaptive.isAppLayout(context)) return child;
+    if (Adaptive.isAppLayout(context)) {
+      return child;
+    }
 
     return Align(
       alignment: Alignment.topCenter,
       child: ConstrainedBox(
-        constraints:
-            BoxConstraints(maxWidth: maxWidth ?? Adaptive.maxWidth(context)),
+        constraints: BoxConstraints(
+          maxWidth: maxWidth ?? Adaptive.maxWidth(context),
+        ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: child,
         ),
       ),
@@ -76,18 +125,15 @@ class AdaptivePage extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------------------
-// 3. AdaptiveGrid -> columns change automatically (app 2, laptop 4-5)
-//
-//    AdaptiveGrid(
-//      aspectRatio: 0.75,
-//      children: products.map((p) => ProductCard(p)).toList(),
-//    )
+// AdaptiveGrid
 // ---------------------------------------------------------------------------
+
 class AdaptiveGrid extends StatelessWidget {
   final List<Widget> children;
   final double aspectRatio;
   final double spacing;
-  final bool shrinkWrap; // true when placed inside a scroll view / Column
+  final bool shrinkWrap;
+
   const AdaptiveGrid({
     super.key,
     required this.children,
@@ -104,55 +150,51 @@ class AdaptiveGrid extends StatelessWidget {
       crossAxisSpacing: spacing,
       mainAxisSpacing: spacing,
       shrinkWrap: shrinkWrap,
-      physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
+      physics: shrinkWrap
+          ? const NeverScrollableScrollPhysics()
+          : null,
       children: children,
     );
   }
 }
 
 // ---------------------------------------------------------------------------
-// 4. AdaptiveBuilder -> totally different UI for web and app (optional)
-//
-//    AdaptiveBuilder(app: MobileView(), web: WebView())
+// AdaptiveBuilder
 // ---------------------------------------------------------------------------
+
 class AdaptiveBuilder extends StatelessWidget {
   final Widget app;
   final Widget web;
-  const AdaptiveBuilder({super.key, required this.app, required this.web});
+
+  const AdaptiveBuilder({
+    super.key,
+    required this.app,
+    required this.web,
+  });
 
   @override
-  Widget build(BuildContext context) =>
-      Adaptive.isWebLayout(context) ? web : app;
+  Widget build(BuildContext context) {
+    return Adaptive.isWebLayout(context) ? web : app;
+  }
 }
 
 // ---------------------------------------------------------------------------
-// 5. AdaptiveNavShell -> main navigation
-//    Website : top navbar (Home, Shop, Service, Profile, Login, Cart)
-//    App     : bottom navigation bar
-//    Pages are automatically centered on website.
-//
-//    Use it inside your MainNavPage build():
-//
-//    return AdaptiveNavShell(
-//      title: "Sumathi's Styles",
-//      currentIndex: _index,
-//      onChanged: (i) => setState(() => _index = i),
-//      destinations: const [
-//        NavDest('Home', Icons.home_outlined),
-//        NavDest('Shop', Icons.storefront_outlined),
-//        NavDest('Service', Icons.design_services_outlined),
-//        NavDest('Profile', Icons.person_outline),
-//      ],
-//      pages: [HomePage(), ShopPage(), ServicePage(), ProfilePage()],
-//      onLogin: () {},
-//      onCart: () {},
-//    );
+// Navigation
 // ---------------------------------------------------------------------------
+
 class NavDest {
   final String label;
   final IconData icon;
-  const NavDest(this.label, this.icon);
+
+  const NavDest(
+    this.label,
+    this.icon,
+  );
 }
+
+// ---------------------------------------------------------------------------
+// AdaptiveNavShell
+// ---------------------------------------------------------------------------
 
 class AdaptiveNavShell extends StatelessWidget {
   final String title;
@@ -162,7 +204,7 @@ class AdaptiveNavShell extends StatelessWidget {
   final ValueChanged<int> onChanged;
   final List<NavDest> destinations;
   final List<Widget> pages;
-  final VoidCallback? onLogin; // set null if user already logged in
+  final VoidCallback? onLogin;
   final VoidCallback? onCart;
 
   const AdaptiveNavShell({
@@ -185,14 +227,16 @@ class AdaptiveNavShell extends StatelessWidget {
     if (web) {
       return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(68),
+          preferredSize: const Size.fromHeight(72),
           child: _webBar(context),
         ),
-        body: AdaptivePage(child: pages[currentIndex]),
+        body: AdaptivePage(
+          maxWidth: Adaptive.maxWidth(context),
+          child: pages[currentIndex],
+        ),
       );
     }
 
-    // APP layout
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: NavigationBar(
@@ -200,7 +244,10 @@ class AdaptiveNavShell extends StatelessWidget {
         onDestinationSelected: onChanged,
         destinations: [
           for (final d in destinations)
-            NavigationDestination(icon: Icon(d.icon), label: d.label),
+            NavigationDestination(
+              icon: Icon(d.icon),
+              label: d.label,
+            ),
         ],
       ),
     );
@@ -209,34 +256,49 @@ class AdaptiveNavShell extends StatelessWidget {
   Widget _webBar(BuildContext context) {
     return Material(
       color: color,
-      elevation: 4,
+      elevation: 3,
       child: Center(
         child: ConstrainedBox(
-          constraints:
-              BoxConstraints(maxWidth: Adaptive.maxWidth(context) + 48),
+          constraints: const BoxConstraints(
+            maxWidth: 1450,
+          ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+            ),
             child: Row(
               children: [
                 logo ??
                     const CircleAvatar(
-                      radius: 22,
+                      radius: 24,
                       backgroundColor: Colors.white,
-                      child: Icon(Icons.storefront, color: Color(0xFF008080)),
+                      child: Icon(
+                        Icons.storefront,
+                        color: Color(0xFF008080),
+                      ),
                     ),
-                const SizedBox(width: 12),
-                Text(title,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold)),
+
+                const SizedBox(width: 14),
+
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
                 const Spacer(),
+
                 for (int i = 0; i < destinations.length; i++)
                   InkWell(
                     onTap: () => onChanged(i),
                     child: Container(
-                      height: 68,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      height: 72,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         border: Border(
@@ -252,7 +314,7 @@ class AdaptiveNavShell extends StatelessWidget {
                         destinations[i].label,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 17,
                           fontWeight: currentIndex == i
                               ? FontWeight.bold
                               : FontWeight.w500,
@@ -260,18 +322,28 @@ class AdaptiveNavShell extends StatelessWidget {
                       ),
                     ),
                   ),
+
                 if (onLogin != null)
                   TextButton(
                     onPressed: onLogin,
-                    child: const Text('Login',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
+
                 if (onCart != null)
                   IconButton(
                     onPressed: onCart,
-                    icon: const Icon(Icons.shopping_cart_outlined,
-                        color: Colors.white),
+                    icon: const Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.white,
+                      size: 27,
+                    ),
                   ),
               ],
             ),
